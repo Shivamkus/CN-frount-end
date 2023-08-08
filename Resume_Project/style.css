@@ -1,0 +1,109 @@
+body{
+    margin: 0px;
+}
+/* body header */
+#body-header{
+    height: 65vh;
+    background-size: cover;
+    opacity: 0.9;
+    background-position: center;
+    background-image: url(/static/bg33.jpg);
+    background-attachment: fixed;
+}
+
+/* horizontal list */
+nav{
+    height: 15vh;
+    width: auto;
+    
+    /* background-color: rgba(79, 92, 92, 0.938); */
+}
+.horizontal-list li {
+margin-top: 30px;
+    list-style: none;
+    display: inline-block;
+}
+.horizontal-list li a{
+    
+    text-decoration: none;
+    margin-left: 40px;
+    color: white;
+    font-weight: 300;
+    font-size: 25px;
+    transition: color 0.5s, border-bottom 0.4s;
+    
+}
+.nav-manu li a:hover{
+    color: rgb(176, 198, 199);
+    border-bottom: 2px solid rgb(176, 198, 199);
+}
+.text-center {
+    text-align: center;
+}
+
+.name-social-container{
+    height: 40vh;
+    margin-top: 40px;
+}
+#my-name{
+    border-radius: 40px;
+    padding: 10px;
+    /* background: rgba(24, 24, 24, 0.886); */
+    margin-left: 80px;
+    text-align: center;
+    font-size: 55px;
+    /* letter-spacing: .1rem; */
+    font-weight: 900;
+    color: rgb(255, 140, 0);
+
+}
+.social-icons{
+    
+    background-color: rgba(0, 0, 0, 0);
+}
+.social-icons i{
+    background-color: rgba(0, 0, 0, 0.188);
+    padding: 10px;
+}
+.social-icons i:hover{
+    box-shadow: 0px 0px 8px 4px lightblue;
+}
+
+
+section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+section:nth-child(2n){
+    background-color: rgba(128, 128, 128, 0.832);
+
+}
+section:nth-child(2n+1){
+    background-color: white;
+
+}
+/* about section start from here */
+
+#about{
+    height: auto;
+    width: 100%;
+    position: relative;
+}
+#my-image {
+    height: 12rem; 
+    width: 12rem;
+    margin: auto;
+    margin-top: -17vh;
+    
+}
+#my-image img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+.about-pera{
+    margin: 40px 300px;
+    font-size: 25px;
+}

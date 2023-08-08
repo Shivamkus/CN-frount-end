@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sun</title>
+    <style>
+        body{
+            background-color: rgb(70, 71, 71);
+        }
+.sun{
+    height: 200px;
+    width: 200px;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    border-radius: 50%;
+    background-color: rgb(245, 142, 7);
+
+}
+.earth{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 0px 0px 4px 2px white;
+    background: linear-gradient(-20deg,green,rgb(21, 0, 255),rgba(58, 197, 123, 0.23),rgb(0, 255, 30));
+    top: 10%;
+    left: 10%;
+    animation-name: rotate,form;
+    animation-duration: 1s, 15s;
+    animation-iteration-count: infinite,infinite;
+    animation-delay: .1s,1s;
+    animation-timeline: ease-in-out,ease-in-out;
+    -o-animation-direction:alternate ,alternate ;
+    /* animation: 3s form ease-in-out infinite .01s ; */
+}
+@keyframes rotate{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+@keyframes form{
+    from{
+        transform: translatex(0%);
+        /* transform: rotate(0deg); */
+    }
+    25%{
+        transform: translatex(1000px);
+
+        /* transform: rotate(360deg); */
+    }
+    50%{
+        transform: translate( 1000px ,500px);
+}
+75%{
+    transform: translate(500px 1000px);
+
+}
+to{
+        transform: translate(0px 500px);
+}
+}
+
+    </style>
+</head>
+<body>
+    <div class="earth">
+
+    </div>
+    <div class="sun">
+        
+    </div>
+    
+</body>
+</html>

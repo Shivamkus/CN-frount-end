@@ -1,0 +1,420 @@
+define(["jqueryui"], function () {
+  var timerx = document.querySelector("#otp-timer"),
+    timerLimit = 30,
+    otpScreen = document.querySelector("#otpBlk"),
+    otpVerifyBtn = document.querySelector("#btnVerifyOTP"),
+    otpInput = document.querySelector("#otp-field"),
+    otpVerifyBtnCount = 0;
+
+  function validateEmail(email) {
+    var re =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  $("#chkAgree").click(function () {
+        enableSubmit();
+  });
+
+  $(document).on("click", "#divGetExamDetails", function () {
+    document.getElementById("getExamDetail").classList.add("show");
+    document.querySelector("body").classList.add("stopBodyScroll");
+    document.querySelector("#form-recaptcha").style.display='block';
+    resetForm();
+  });
+
+  $(document).on("click", ".tncOpen", function () {
+    document.getElementById("tnc").classList.add("show");
+    document.querySelector("body").classList.add("stopBodyScroll");
+    resetForm();
+  });
+
+  $(document).on("click", ".closeModalBtn", function () {
+    document.querySelector(".lead-grn-modal").classList.remove("show");
+    document.querySelector("body").classList.remove("stopBodyScroll");
+    document.querySelector("#form-recaptcha").style.display='none';
+    resetForm();
+  });
+
+  function requestOtp() {
+    otpInput.value = "";
+    document.getElementById("verif-scrn").style.display = "block";
+    document.querySelector("#lblMobileNumber").innerHTML =
+      document.querySelector("#phone").value;
+
+    timer.start(timerLimit, () => {
+      enableResendOtpBtn();
+    });
+
+    grecaptcha.ready(function () {
+      grecaptcha.execute().then(async (requestToken) => {
+        const res = await generateOtp(requestToken);
+        await grecaptcha.reset();
+        if (res && res.success) {
+          document.getElementById("verif-scrn").style.display = "block";
+        } else {
+          handleServerSideErrors(res);
+        }
+      });
+    });
+  }
+
+  async function generateOtp(requestToken) {
+    const headers = new Headers();
+    headers.append("X-Authorization", requestToken);
+    headers.append("X-Client", "1023");
+    headers.append("Content-Type", "application/json");
+    const phone = "91" + document.querySelector("#phone")?.value;
+    if (!phone) return;
+    const body = JSON.stringify({
+      cellNumber: phone,
+      referrer: "HT",
+      otpFor: "AUTHENTICATION",
+    });
+    const res = await fetch("https://www.livehindustan.com/otp/v1/send", {
+      method: "POST",
+      headers,
+      body,
+      redirect: "follow",
+    });
+    return await res.json();
+  }
+
+  function handleServerSideErrors(e) {
+    e.message && e.message.text
+      ? alert(e.message.text)
+      : alert("Something went wrong!");
+  }
+
+  function enableResendOtpBtn() {
+    document.querySelector("#resendOtp").className = "punBhjeTxt";
+  }
+
+  function handleCloseOtpModal() {
+    timer.stop(), (verfictnModal.style.display = "none");
+  }
+
+  otpVerifyBtn.addEventListener("click", async function () {
+    if (!otpInput) return;
+    if (!otpInput.value) {
+      alert("Please enter a valid 6 digit OTP!");
+      return;
+    }
+    if (typeof otpInput.value === "string" && otpInput.value.length < 6) {
+      alert("Please enter a valid 6 digit OTP!");
+      return;
+    }
+
+    grecaptcha.ready(function () {
+      grecaptcha.execute().then(async (verifyToken) => {
+        const phone = $("#phone").val();
+        await grecaptcha.reset();
+        handleVerifyOtp("91" + phone, verifyToken, otpInput.value);
+      });
+    });
+  });
+
+  function handleVerifyOtp(phone, verifyToken, otp) {
+    if (!timer) return;
+
+    otpVerifyBtnCount = otpVerifyBtnCount + 1;
+    otpVerifyBtn.disabled = true;
+
+    const headers = new Headers();
+    headers.append("X-Authorization", verifyToken);
+    headers.append("X-Client", "1023");
+    headers.append("Content-Type", "application/json");
+    const body = JSON.stringify({ cellNumber: phone, otp: otp });
+
+    fetch("https://www.livehindustan.com/otp/v1/verify", {
+      method: "POST",
+      headers,
+      body,
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (otpVerifyBtnCount !== 3) otpVerifyBtn.disabled = false;
+        const { success } = response;
+        if (!success) return handleServerSideErrors(response);
+        document.querySelector("#otp-input-scrn").style.display = "none";
+        document.querySelector("#otp-verified-scrn").style.display = "flex";
+
+        // if ($("#emailAddress").length == 0) {
+        //   //indicates that this request is from story page
+        //   document.getElementById("verif-scrn").style.display = "none";
+        //   document.querySelector("#inputDetails").style.display = "none";
+        // }
+
+        dapTracker.track(
+          "leadGenBoardResultsOtpVerification",
+          JSON.parse(otpPayLoad),
+          "event"
+        );
+        resetForm();
+      })
+      .catch((e) => {
+        alert("Something went wrong!");
+        if (otpVerifyBtnCount !== 3) otpVerifyBtn.disabled = false;
+        timer.stop();
+      });
+  }
+
+  function resetForm() {
+    document.querySelector("#txtYourName").value = "";
+    document.querySelector("#phone").value = "";
+    if ($("#emailAddress").length > 0)
+      document.querySelector("#emailAddress").value = "";
+    if ($("#txtRollNo").length > 0)
+      document.querySelector("#txtRollNo").value = "";
+    document.querySelector("#drpClass").selectedIndex = 0;
+    document.querySelector("#drpLocation").selectedIndex = 0;
+    document.querySelector("#form-recaptcha").style.display='none';
+  }
+
+  // BELOW ARE ONLY HELPING FUNCTIONS
+
+  var timer = {
+    timerId: null,
+    element: timerx,
+    timerCount: 0,
+
+    start(seconds, callback) {
+      this.timerCount = seconds;
+      this._constructHtml();
+      this._invoke(callback);
+    },
+
+    _constructHtml() {
+      if (!this.element) return;
+      this.element.innerHTML = this._transformTime(this.timerCount);
+    },
+
+    _transformTime(seconds) {
+        if(seconds<0) seconds=0;
+
+      const str = seconds.toString();
+
+      return "00:" + (str.length === 1 ? "0" + str : str);
+    },
+
+    _invoke(cb) {
+      this.timerId = setInterval(() => {
+        this.timerCount = this.timerCount - 1;
+        if (this.timerCount === 0) {
+          this.stop();
+          cb();
+        }
+        this._constructHtml();
+      }, 1000);
+    },
+
+    stop() {
+      clearInterval(this.timerId);
+      this.timerCount = 0;
+      this._constructHtml();
+    },
+  };
+
+  function validateMobile(phone) {
+    var re = /^(\+91[\-\s]?)?[0]?(91)?[789]\d{9}$/;
+  if (!re.test(phone)) {
+      return false;
+  } else {
+      return true;
+  }
+  }
+
+  $(document).on("click", "#resendOtp", function () {
+    document.querySelector("#resendOtp").className = "disabled-link";
+    requestOtp();
+  });
+
+  $(function () {
+    $(".otp-input").on("input", function () {
+      $(this).val(
+        $(this)
+          .val()
+          .replace(/[^0-9]/g, "")
+      );
+    });
+  });
+
+  $(function () {
+    $(".phone").on("input", function () {
+      $(this).val(
+        $(this)
+          .val()
+          .replace(/[^0-9]/g, "")
+      );
+    });
+  });
+
+
+  setTimeout(function() {
+    $("#drpClass,#drpLocation").parent().find(".custom-select").each(function (i, el) {
+        $(el).on("click", function (e) {
+            enableSubmit();
+        });
+    });
+  }, 10000);
+
+
+  var otpPayLoad='';
+  function enableSubmit() {
+    let isDisabled = true;
+    let namex = document.querySelector("#txtYourName").value;
+    if (namex.trim().length > 0) isDisabled = false;
+    else isDisabled = true;
+
+    if (isDisabled == false) {
+      let phonex = document.querySelector("#phone").value;
+      if (phonex.trim().length > 0) isDisabled = false;
+      else isDisabled = true;
+    }
+
+    if (isDisabled == false) {
+      if (document.querySelector("#drpClass").selectedIndex > 0)
+        isDisabled = false;
+      else isDisabled = true;
+    }
+
+    if (isDisabled == false) {
+      if (document.querySelector("#drpLocation").selectedIndex > 0)
+        isDisabled = false;
+      else isDisabled = true;
+    }
+
+    if ($("#emailAddress").length > 0) {
+    if (isDisabled == false) {
+      let emailAddressx = document.querySelector("#emailAddress").value;
+      if (emailAddressx.trim().length > 0) isDisabled = false;
+      else isDisabled = true;
+    }
+    }
+
+    if(isDisabled==false)
+    {
+    if ($("#chkAgree").is(":checked") == false)
+      isDisabled=true;
+    else isDisabled=false;
+    }
+
+
+    if (isDisabled) $("#btnPrimaryBtn").attr("disabled", "disabled");
+    else $("#btnPrimaryBtn").removeAttr("disabled");
+  }
+
+  $("input#txtYourName,#phone,#txtRollNo,#emailAddress").on(
+    "input",
+    function (e) {
+      enableSubmit();
+    }
+  );
+
+  $(document).on("click", "#btnPrimaryBtn", function () {
+    let namex = document.querySelector("#txtYourName").value;
+    if (namex.trim() == "") {
+      alert("Please enter name");
+      return;
+    }
+    let phonex = document.querySelector("#phone").value;
+    if (phonex.trim() == "") {
+      alert("Please enter mobile number");
+      return;
+    }
+
+    if (validateMobile(phonex) == false) {
+      alert("Please recheck the mobile number");
+      return;
+    }
+
+    let emailAddressx = "";
+
+    if ($("#emailAddress").length > 0) {
+      emailAddressx = document.querySelector("#emailAddress").value;
+      if (emailAddressx.trim() == "") {
+        alert("Please enter email address");
+        return;
+      }
+
+      if (validateEmail(emailAddressx) == false) {
+        alert("Please enter valid email address");
+        return;
+      }
+    }
+
+    let rollNumberx = "";
+
+    if ($("#txtRollNo").length > 0) {
+      rollNumberx = document.querySelector("#txtRollNo").value;
+
+      if (document.querySelector("#drpClass").selectedIndex == 0) {
+        alert("Please select class");
+        return;
+      }
+    }
+
+    let classx = document.querySelector("#drpClass").value;
+
+    if (document.querySelector("#drpLocation").selectedIndex == 0) {
+      alert("Please select location");
+      return;
+    }
+
+    let locationx = document.querySelector("#drpLocation").value;
+
+    const board_date = new Date();
+    let year = board_date.getFullYear();
+
+    var payLoad = JSON.stringify({
+      rollNo: rollNumberx,
+      sName: namex,
+      mob: phonex,
+      class: classx,
+      email: emailAddressx,
+      location: locationx,
+      boardName: Board,
+      resultYear: year,
+      url: window.location.href,
+    });
+
+     otpPayLoad = JSON.stringify({
+      OTP : true,
+      rollNo: rollNumberx,
+      sName: namex,
+      mob: phonex,
+      class: classx,
+      email: emailAddressx,
+      location: locationx,
+      boardName: Board,
+      resultYear: year,
+      url: window.location.href,
+    });
+
+
+   
+
+    dapTracker.track("boardResReg", JSON.parse(payLoad), "user");
+    dapTracker.track(
+      "leadGenBoardResultsUnverified",
+      JSON.parse(payLoad),
+      "user"
+    );
+    document.querySelector("#resendOtp").className = "disabled-link";
+    otpInput.value = "";
+
+    if ($("#emailAddress").length == 0 && $("#getExamDetail").length>0)
+      document.querySelector("#getExamDetail").classList.remove("show");
+
+      document.querySelector("#form-recaptcha").style.display='block';
+
+
+      requestOtp();
+  });
+
+  $(document).on("click", ".clsBtn", function () {
+    $("#verif-scrn").hide();
+    document.querySelector("#otp-input-scrn").style.display = "block";
+    document.querySelector("#otp-verified-scrn").style.display = "none";
+  });
+});

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bounce</title>
+    <style>
+           .body{
+            height: 100px;
+            width: 100px;
+            background-color: aquamarine;
+            position: absolute;
+            top: 30%;
+            left: 20%;
+            animation: Bounce .3s ease-in-out  alternate;
+           }
+           @keyframes Bounce{
+            0%{
+                transform: translatey(0%);
+            }
+            25%{
+                transform: translatey(100%);
+            }
+            50%{
+                transform: translatey(0%);
+
+            }
+            100%{
+                transform: translatey(50%);
+
+            }
+           }
+    </style>
+</head>
+<body>
+    <div class="body">
+
+    </div>
+    
+</body>
+</html>

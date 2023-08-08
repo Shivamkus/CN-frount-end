@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: serif;
+}
+nav{
+    height: 10vh;
+    background-color: rgb(3, 110, 249);
+    color: white;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+}
+nav .logo{
+    font-size: 33px;
+    color: #fff;
+
+}
+nav .logo span{
+    font-weight: 900;
+    color: rgb(255, 213, 0);
+}
+nav ul{
+    display: flex;
+    list-style: none;
+}
+nav ul li {
+    margin: 0 5px;
+}
+nav ul li a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    background-color:rgba(0, 0, 0, 0.138) ;
+    padding: 5px 10px;
+}

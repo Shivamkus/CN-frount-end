@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round circle</title>
+
+    <style>
+        .circle{
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            height: 300px;
+            width: 300px;
+            border-radius: 10%;
+            background-color: rgb(255, 72, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation:round 1s ease-in-out infinite  ;
+
+        }
+        @keyframes round{
+            from{
+                transform: rotate(0deg);
+            }
+            to{
+                transform: rotate(360deg);
+            }
+        }
+        .c2{
+            height: 50%;
+            width: 50%;
+            background-color: #04d9ce;
+           
+        }
+        .c3{
+            height: 100%;
+            width: 100%;
+            background-color: #04d9ce;
+            
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .c4{
+            height: 50%;
+            width: 50%;
+            border-radius: 40%;
+            background-color: #eb600a;
+            transform: rotate(45deg);
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="circle">
+        <div class="c2">
+            <div class="c3">
+              <div class="c4">
+
+              </div>
+
+        </div>
+
+        </div>
+    </div>
+    
+</body>
+</html>

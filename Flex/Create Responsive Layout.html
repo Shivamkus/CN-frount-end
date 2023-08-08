@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Responsive Layout
+    </title>
+    <style>
+        .box{
+            display: inline;
+            justify-content: space-around;
+        }
+        .box h2{
+
+            text-align: center;
+            text-decoration: underline;
+        }
+        .box div{
+            display: inline-block;
+            justify-content: space-around;
+            height: 300px;
+            width: 32%;
+        }
+        .div1{
+            background-color: #ff8989;
+        }
+        .div2{
+            background-color: #88f7ce;
+        }
+        .div3{
+            background-color: #e29df2;
+        }
+
+        @media screen and(max-width:600px) {
+            .box div{
+                display: flex;
+                flex-direction: column;
+                height: 300px;
+            width: 100%;
+
+            }
+        }
+ 
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Create Responsive Layout
+        </h2>
+        <div class="div1"></div>
+        <div class="div2"></div>
+        <div class="div3"></div>
+
+    </div>
+</body>
+</html>

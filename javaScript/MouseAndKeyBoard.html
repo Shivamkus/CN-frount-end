@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>java Script keybord and mouse event </title>
+</head>
+<style>
+    #outer{
+        height: 200px;
+        width: 200px;
+        margin: 10%;
+        margin-bottom: 0;
+        background-color: red;
+
+    }
+    #search{
+        margin: 10%;
+    }
+</style>
+
+<body>
+    <div id="outer"></div>
+    <input type="text" name="search" id="search">  
+    
+    <script>
+        var outerDiv = document.getElementById('outer');
+        outer.addEventListner('mouseover', function(){
+        //    console.log('Mouse Over');
+        alert('mouse over')
+        });
+        outer.addEventListner ('mouseout' , function(){
+            console.log('Mouse Out');
+        });
+
+        document.addEventListener('keydown' ,function(event){
+            alert('key down',event.keyCode);
+        });
+
+    </script>
+</body>
+</html>

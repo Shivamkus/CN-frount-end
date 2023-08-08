@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            height: 200px;
+            width: 200px;
+            background-color:red;
+            margin: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+        <p>Box Clicked <span id="click-count">0</span> times</p>
+
+
+
+    <script>
+        var box = document.getElementById('box');
+        var clickCount = document.getElementById('click-count');
+        count = 0;
+        box.addEventListener('click' , function(){
+            count ++ ;
+            console.log(count);
+            clickCount.innerText = count + " ";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+window.googletag = window.googletag || {};
+window.googletag.cmd = window.googletag.cmd || [];
+(function (W, D, N) {
+W[N]=W[N]||{};W[N].cmd=W[N].cmd||[];W[N].cmd2=W[N].cmd2||[];
+function getDbg(){var dbg=0,m;try{m = W.location.href.match(/pbjs_debug=(\S*)/) || (D.cookie+';').match(/pbjs_debug=(\S*)\;/);dbg=m && m[1] && 'true'===(m[1].split('&')[0]||'')}catch(e){}dbg=dbg||0;D.cookie='pbjs_debug='+dbg+'; path=/; secure';return dbg}
+W.G_options=W.G_options||{};
+W.G_options.debug=getDbg();
+var G_debug=G_options.debug;
+function loadScript(url){var o='script',s=document,a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=url;m.parentNode.insertBefore(a,m);};
+
+if(W[N]['affmp2_hindustantimes.com']){return}W[N]['affmp2_hindustantimes.com']=1;
+loadScript('https://cdn4-hbs.affinitymatrix.com/hvrlib/hindustantimes.com/1683792065/v2.js');
+W[N].cmd.push(function(){
+if(!W[N].chkDomain('hindustantimes.com')){return}
+var cfg = {"aff":{"def":{"maxCall":1,"minVisblePerc":50,"delaySec":30,"kw":{"domain":"hindustantimes.com"},"gads":{"enabled":false}},"aus":[{"au":"/42115163,1055314/IP_hindustantimes.com_ALL_Multisize_RON_Both_HVR","sz":["300x250","728x90","970x90","970x250","300x600","120x600","160x600","320x50","320x100","336x280"],"def":1}],"pbjs":{"enabled":true,"nm":"affpbjs","hbsite":"hvr_hindustantimes.com","cdnEnabled":true}},"pub":{"def":{"maxCall":5,"delaySec":45,"minVisblePerc":60,"kw":{"domain":"hindustantimes.com"},"excludePatrn":{"patrn":"NO_REFRESH","enable":1},"section":{"enable":0,"whitelist":[],"blacklist":[]},"ignireImpForPubAu":0,"reprf":44,"dfpids":{"enable":1,"incIds":{"cmpId":[2747342629,3007540721,2370958071,2731029254,2618634891,3120578594,2811230361,2974352777,2618116009,3016515594,2724912475,2670225262,3038680784,2637963023,2959310380,2870943347,3015447000,3033237336,2745738409,3042047965,2975038482,3099634313,2618637084,2974364809,3116303759,2617900523,3014601353,2618146780,2871582651,2975024103,2617902236,2822879965,2904469614,2617906787,2618147980,2618643747,2974349726,3015449175,2974349900,2822877040,3116178703,3014603162,2975040663,2618149918,2370207750,3116164018,2975040939,2618645517,3051148459,2822777180,2904009982,2618646198,3014689153,3117567252,3117565383,2823531081,3014690554,3015451905,3117578286,2617876994,2369735456,3015453024,2618614302,2618612841,2903999431,3051024863,3116171992,3117581430,2823531585,3117571167,3116321408,2618145964,2904469617,2822879968,2618614269,3116176057,2618121973,2617883264,3051155275,2618128078,2618131135,3117574749,2903999746,2618149105,2617881524,2618632479,3051031592,2617889432,3116186818,2618633499,2618635401,2617898159,3116325761,3051036908,2618142367,2617904327,2617904762,3116189470,2617907261,2903753492,3116191369,3051173404,2618147182,3051173989,2823532755,3052897181,2369806280]},"excIds":[]},"selfRefresh":{"enable":true,"arPrtn":["SELF_REFRESH"],"refConfFrmAff":true,"arAu":[],"dfpids":{"incIds":{"advId":[],"cmpId":[],"litId":[]}}}},"rule":[{"tp":"exc","au":["*"],"sz":["1x1"],"lbl":"Ignr 1x1"},{"tp":"inc","au":["*"],"sz":["300x250","728x90","970x90","970x250","300x600","120x600","160x600","320x50","320x100","336x280"],"lbl":"All Au"},{"tp":"exc","au":["/1055314/Hindustantimes_AMP_Story/HT_AMP_Story_Sticky_Multisize","/1055314/Hindustantimes_Mweb_Story/HT_WAP_Story_Sticky_Multisize","/1055314/Hindustantimes_Mweb_LiveBlog/HT_WAP_LiveBlog_Sticky_Multisize","/1055314/Hindustantimes_Mweb_Home/HT_WAP_Home_Sticky_Multisize","/1055314/Hindustantimes_Mweb_Section/HT_WAP_Section_Sticky_Multisize","/1055314/Hindustantimes_AMP_Home/HT_AMP_Home_Sticky_Multisize","/1055314/Hindustantimes_AMP_Section/HT_AMP_Section_Sticky_Multisize","/1055314/Hindustantimes_AMP_PhotoGallery/HT_AMP_PTG_Sticky_Multisize","/1055314/Hindustantimes_Mweb_Scoreboard/HT_WAP_Scoreboard_Sticky_Multisize","/1055314/Hindustantimes_Mweb_Games/HT_WAP_Games_Sticky_Multisize","/1055314/Hindustantimes_Mweb_PhotoGallery/HT_WAP_PTG_Sticky_Multisize","/1055314/Hindustantimes_AMP_Across/HT_AMP_AllPages_Sticky_Multisize","/1055314/Hindustantimes_Mweb_Across/HT_WAP_AllPages_Sticky_Multisize","/1055314/HT_Wap_Story_Sticky_Multisize","/1055314/HT_AMP_StoryPage_Sticky_320x50","/1055314/Hindustantimes_Mweb_Result/HT_WAP_Result_Sticky_Multisize","/1055314/Hindustantimes_AMP_Result/HT_AMP_Result_Sticky_Multisize","/1055314/HT_Wap_Home_Sticky_Multisize","/1055314/HT_Wap_Section_Sticky_Multisize","/1055314/Hindustantimes_AMP_News/HT_AMP_News_Sticky_Multisize","/1055314/Hindustantimes_Mweb_News/HT_WAP_News_Sticky_Multisize"],"sz":["*"],"lbl":"Black-AU"}],"adspots":[]},"geo":{"enable":false,"srvdrct":true,"cc":["*"]}};
+if('function' === typeof W[N].hvrCustCfg ){
+    cfg = W[N].hvrCustCfg( cfg );
+    if( !cfg ){return}
+}
+if(cfg.aff.pbjs && cfg.aff.pbjs.enabled){
+    var hbsite = cfg.aff.pbjs.hbsite || ('hvr_' + cfg.aff.def.kw.domain),d=new Date(),
+    hbInvKey='affhb2_affpbjs_' + cfg.aff.pbjs.hbsite.replace('hvr_man_','hvr_'),
+    hostUrl = cfg.aff.pbjs.cdnEnabled ? 'cdn4-hbs.affinitymatrix.com' : 'hbs.ph.affinity.com',
+    hbLibUrl = 'https://' + hostUrl +'/v5/' + hbsite + '/affhb.data.js.php?t=' + d.getDate() + d.getMonth() + d.getHours(),
+    hbLibLoadDly = 0;
+
+    if(!W[N][hbInvKey]){
+        if (hbLibLoadDly > 0) {
+            setTimeout(function(){
+                W[N].U.loadScript(hbLibUrl);
+            }, 0 * 1000);
+        } else {
+            W[N].U.loadScript(hbLibUrl);
+        }
+    }
+}
+if( cfg.aff.def.dfpenblsrv){W[N].U.loadScript("https://securepubads.g.doubleclick.net/tag/js/gpt.js");}
+
+    googletag.cmd.push(function() {
+        W[N].AffRefresh(cfg)
+    });
+});
+})(window, document, '__afflib');

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>align items</title>
+    <style>
+        #container{
+            background-color: rgba(0, 0, 0, 0.603);
+            height: 700px;
+            width: 800px;
+            flex-wrap: wrap;
+            display: flex;
+            flex-direction: column;
+            justify-content: center ;
+            align-items:stretch;
+        }
+       #container div{
+            height: 200px;
+            width: 200px;
+        }
+        #div1{
+            background-color: aqua;
+        }
+        #div2{
+            background-color: blueviolet;
+        }
+        #div3{
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="div1"><p>div 1</p></div>
+        <div id="div2"><p>div 2</p></div>
+        <div id="div3"><p>div 3</p></div>
+        <div id="div1"><p>div 1</p></div>
+        <div id="div2"><p>div 2</p></div>
+        <div id="div3"><p>div 3</p></div><div id="div1"><p>div 1</p></div>
+        <div id="div2"><p>div 2</p></div>
+        <div id="div3"><p>div 3</p></div>
+    </div>
+</body>
+</html>

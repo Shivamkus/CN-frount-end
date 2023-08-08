@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo js </title>
+</head>
+<body>
+    <button id="btn2" onclick="sayHellow()">button 2</button>
+    <button id="btn">say hellow !</button>
+    <script>
+        function sayHellow(){
+            alert('Hello this is a alert using javaScript')
+        }
+        function sayBye(){
+            alert('Bye');
+        }
+        var helloButton = document.getElementById('btn');
+        helloButton.addEventListener('click',sayHellow)
+        helloButton.addEventListener('click',sayBye)
+
+    </script>
+</body>
+</html>
